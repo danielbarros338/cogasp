@@ -5,7 +5,7 @@ dotenv.config({
   path: process.env.NODE_ENV === "production" ? ".env.production" : ".env.development"
 });
 
-const sequelize: Sequelize = new Sequelize(
+const sequelize = new Sequelize(
   process.env.DB_DATABASE as string,
   process.env.DB_USER as string,
   process.env.DB_PASSWORD as string,
