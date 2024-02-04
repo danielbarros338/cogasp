@@ -1,27 +1,31 @@
 import { Model, InferAttributes, InferCreationAttributes, DataTypes } from "sequelize";
 import sequelize from "@src/config/db";
 
-class Earning extends Model<InferAttributes<Earning>, InferCreationAttributes<Earning>> {};
+class User extends Model {
+  declare userId: number;
+  declare username: string;
+  declare password: string;
+};
 
-Earning.init({
-  earningId: {
+User.init({
+  userId: {
     type: DataTypes.INTEGER,
-    allowNull: false,
     primaryKey: true,
+    allowNull: false,
     autoIncrement: true
   },
-  name: {
+  username: {
     type: DataTypes.STRING(50),
     allowNull: false
   },
-  value: {
-    type: DataTypes.DOUBLE,
-    allowNull: false
-  },
-  date: {
-    type:DataTypes.DATE,
+  password: {
+    type: DataTypes.STRING(100),
     allowNull: false
   }
 }, {
   sequelize
-})
+});
+
+// User.sync({ force: true });
+
+export default User;

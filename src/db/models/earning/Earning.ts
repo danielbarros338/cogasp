@@ -1,10 +1,10 @@
 import { Model, InferAttributes, InferCreationAttributes, DataTypes } from "sequelize";
 import sequelize from "@src/config/db";
 
-class Spending extends Model<InferAttributes<Spending>, InferCreationAttributes<Spending>> {};
+class Earning extends Model<InferAttributes<Earning>, InferCreationAttributes<Earning>> {};
 
-Spending.init({
-  spendignId: {
+Earning.init({
+  earningId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
@@ -21,7 +21,11 @@ Spending.init({
   date: {
     type:DataTypes.DATE,
     allowNull: false
+  },
+  typeEarningId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   }
 }, {
   sequelize
-});
+})
