@@ -4,30 +4,48 @@ import User from "@src/db/models/user/User";
 
 export async function signUp(req: Request, res: Response): Promise<void> {
   try {
+    const verifyUser = await User.findOne({
+      where: { email: req.body.email }
+    });
+
+    if (verifyUser) {
+      res.status(403).json({ message: "Email já cadastrado.", data: null });
+      
+      return;
+    }    
+  } catch (err) {
+    res.status(500).json({ message: err, data: null })
+  }
+
+  try {
     const user = await User.create({
-      username: req.body.username,
+      email: req.body.email,
       password: crypt.cryptPass(req.body.password)
     });
 
-    res.status(201).json({ user: { id: user.userId, username: user.username }})
+    res.status(201).json({ 
+      message: "Usuário cadastrado com sucesso.",
+      data: { user: { id: user.userId, email: user.email }
+    }})
   } catch(err) {
-    res.status(400).json({ err })
+    res.status(500).json({ err })
   }
 }
 
 export async function signIn(req: Request, res: Response): Promise<void> {
   try {
     const user = await User.findOne({
-      where: { username: req.body.username }
+      where: { email: req.body.email }
     });
 
     if (!user || !crypt.verifyPass(req.body.password, user.password)) {
-      res.json({ user: null });
+      res.status(404).json({ message: "Usuário ou senha inválidos.", data: null });
+
       return;
     }    
 
-    res.json({ user: { id: user.userId, username: user.username }})
+    res.json({ user: { id: user.userId, email: user.email }})
   } catch (err) {
-    res.status(400).json({ err })
+    res.status(500).json({ err })
   }
 }
