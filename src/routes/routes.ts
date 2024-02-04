@@ -7,4 +7,5 @@ export default (app: Express) => {
   app.post("/signin", UserController.signIn);
 
   app.post("/signup-earning", EarningController.signUpEarning);
+  app.get("/get-earnings/:userId", EarningController.getEarnings);
 }
