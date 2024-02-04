@@ -33,3 +33,5 @@ CreditCard.init({
 }, {
   sequelize
 });
+
+export default CreditCard;

@@ -41,3 +41,5 @@ Spending.init({
 }, {
   sequelize
 });
+
+export default Spending;

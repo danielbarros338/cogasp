@@ -17,3 +17,5 @@ SpendingClassification.init({
 }, {
   sequelize
 });
+
+export default SpendingClassification;

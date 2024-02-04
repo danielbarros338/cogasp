@@ -28,4 +28,6 @@ Earning.init({
   }
 }, {
   sequelize
-})
+});
+
+export default Earning;

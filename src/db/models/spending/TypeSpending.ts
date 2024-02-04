@@ -18,3 +18,5 @@ TypeSpending.init({
   sequelize,
   timestamps: false
 })
+
+export default TypeSpending;

@@ -25,4 +25,6 @@ CreditCardParcel.init({
 }, {
   sequelize,
   timestamps: false
-})
+});
+
+export default CreditCardParcel;

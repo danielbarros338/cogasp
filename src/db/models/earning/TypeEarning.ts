@@ -17,4 +17,6 @@ TypeEarning.init({
 }, {
   sequelize,
   timestamps: false
-})
+});
+
+export default TypeEarning;
