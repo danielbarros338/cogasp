@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import * as crypt from "@src/utils/crypto";
-import User from "@src/db/models/user/User";
+import models from "@src/db/models";
 
 export async function signUp(req: Request, res: Response): Promise<void> {
+  const User = models.userModels.User;
+
   try {
     const verifyUser = await User.findOne({
       where: { email: req.body.email }
@@ -33,6 +35,8 @@ export async function signUp(req: Request, res: Response): Promise<void> {
 }
 
 export async function signIn(req: Request, res: Response): Promise<void> {
+  const User = models.userModels.User;
+
   try {
     const user = await User.findOne({
       where: { email: req.body.email }
