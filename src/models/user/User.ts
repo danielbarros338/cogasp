@@ -4,7 +4,12 @@ import sequelize from "@src/config/db";
 class User extends Model {
   declare userId: number;
   declare email: string;
+  declare name: string;
   declare password: string;
+
+  teste(): string {
+    return 'teste'
+  }
 };
 
 User.init({
@@ -15,6 +20,10 @@ User.init({
     autoIncrement: true
   },
   email: {
+    type: DataTypes.STRING(50),
+    allowNull: false
+  },
+  name: {
     type: DataTypes.STRING(50),
     allowNull: false
   },

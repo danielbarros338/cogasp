@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import * as crypt from "@src/utils/crypto";
-import models from "@src/db/models";
+import models from "@src/models";
 
 export async function signUp(req: Request, res: Response): Promise<void> {
   const User = models.userModels.User;

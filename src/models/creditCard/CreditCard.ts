@@ -1,28 +1,32 @@
 import { Model, InferAttributes, InferCreationAttributes, DataTypes } from "sequelize";
 import sequelize from "@src/config/db";
 
-class Earning extends Model<InferAttributes<Earning>, InferCreationAttributes<Earning>> {};
+class CreditCard extends Model<InferAttributes<CreditCard>, InferCreationAttributes<CreditCard>> {};
 
-Earning.init({
-  earningId: {
+CreditCard.init({
+  creditCardId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true
   },
-  name: {
+  cardName: {
+    type: DataTypes.STRING(200),
+    allowNull: false
+  },
+  flag: {
     type: DataTypes.STRING(50),
     allowNull: false
   },
-  value: {
-    type: DataTypes.DOUBLE,
+  endNumber: {
+    type: DataTypes.STRING(50),
     allowNull: false
   },
-  date: {
-    type:DataTypes.DATE,
+  dueDate: {
+    type: DataTypes.CHAR(5),
     allowNull: false
   },
-  typeEarningId: {
+  userId: {
     type: DataTypes.INTEGER,
     allowNull: false
   }
@@ -30,4 +34,4 @@ Earning.init({
   sequelize
 });
 
-export default Earning;
+export default CreditCard;
