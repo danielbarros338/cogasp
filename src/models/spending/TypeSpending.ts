@@ -17,10 +17,6 @@ TypeSpending.init({
     type: DataTypes.STRING(50),
     allowNull: false
   },
-  userId: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  }
 }, {
   sequelize,
   timestamps: false

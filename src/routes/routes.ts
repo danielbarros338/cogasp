@@ -14,6 +14,6 @@ export default (app: Express) => {
   app.post("/register-type-spending", SpendingController.registerTypeSpending);
   app.post("/register-spending-classification", SpendingController.registerSpendingClassification);
   app.get("/get-spendings/:userId", SpendingController.getSpendings);
-  app.get("/get-type-spendings/:userId", SpendingController.getTypeSpendings);
+  app.get("/get-type-spendings", SpendingController.getTypeSpendings);
   app.get("/get-spendings-classification/:userId", SpendingController.getSpendingsClassification);
 }
