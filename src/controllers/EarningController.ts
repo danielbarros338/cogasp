@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import models from "@src/models";
 
-export async function signUpEarning(req: Request, res: Response): Promise<void> {
+export async function registerEarning(req: Request, res: Response): Promise<void> {
   const { Earning } = models.earningModels;
 
   try {

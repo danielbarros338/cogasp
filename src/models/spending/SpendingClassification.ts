@@ -1,7 +1,10 @@
-import { Model, InferAttributes, InferCreationAttributes, DataTypes } from "sequelize";
+import { Model, DataTypes } from "sequelize";
 import sequelize from "@src/config/db";
 
-class SpendingClassification extends Model<InferAttributes<SpendingClassification>, InferCreationAttributes<SpendingClassification>> {};
+class SpendingClassification extends Model {
+  declare spendingClassificationId: number;
+  declare name: string;
+};
 
 SpendingClassification.init({
   spendingClassificationId: {
@@ -14,8 +17,13 @@ SpendingClassification.init({
     type: DataTypes.STRING(100),
     allowNull: false
   },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  }
 }, {
-  sequelize
+  sequelize,
+  timestamps: false
 });
 
 export default SpendingClassification;

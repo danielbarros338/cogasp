@@ -1,7 +1,10 @@
-import { Model, InferAttributes, InferCreationAttributes, DataTypes } from "sequelize";
+import { Model, DataTypes } from "sequelize";
 import sequelize from "@src/config/db";
 
-class Spending extends Model<InferAttributes<Spending>, InferCreationAttributes<Spending>> {};
+class Spending extends Model {
+  declare spendingId: number;
+  declare name: string;
+};
 
 Spending.init({
   spendingId: {

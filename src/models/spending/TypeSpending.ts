@@ -1,7 +1,10 @@
-import { Model, InferAttributes, InferCreationAttributes, DataTypes } from "sequelize";
+import { Model, DataTypes } from "sequelize";
 import sequelize from "@src/config/db";
 
-class TypeSpending extends Model<InferAttributes<TypeSpending>, InferCreationAttributes<TypeSpending>> {};
+class TypeSpending extends Model {
+  declare typeSpendingId: number;
+  declare name: string;
+};
 
 TypeSpending.init({
   typeSpendingId: {
@@ -12,6 +15,10 @@ TypeSpending.init({
   },
   name: {
     type: DataTypes.STRING(50),
+    allowNull: false
+  },
+  userId: {
+    type: DataTypes.INTEGER,
     allowNull: false
   }
 }, {
