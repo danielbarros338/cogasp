@@ -13,6 +13,7 @@ export async function registerSpendingCreditCard(spendingId: number, reqBody: Re
         totalParcels: processedParcel.totalParcels,
         parcelValue: processedParcel.parcelValue,
         dueDate: processedParcel.dueDate,
+        creditCardId: reqBody.creditCardId,
         spendingId
       });
 
