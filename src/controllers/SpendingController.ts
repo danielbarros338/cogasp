@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import * as CreditCardController from "./CreditCardController";
 import models from "@src/models";
 
 export async function registerSpending(req: Request, res: Response): Promise<void> {
@@ -15,6 +16,10 @@ export async function registerSpending(req: Request, res: Response): Promise<voi
       classification: req.body.classification,
       userId: req.body.userId
     });
+
+    if (req.body.typeSpending === "CDC") {
+      await CreditCardController.registerSpendingCreditCard(spending.spendingId, req.body);
+    }
 
     res.status(203).json({
       message: "Despesa cadastrada com sucesso.",

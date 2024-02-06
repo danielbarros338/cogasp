@@ -2,10 +2,10 @@ import { Model, DataTypes } from "sequelize";
 import sequelize from "@src/config/db";
 
 class CreditCardParcel extends Model {
-  static processParcels(spending: Record<string, string|number>): Array<Record<string, string|number|Date>> {
+  static processParcels(spending: Record<string, string|number|Date>): Array<Record<string, string|number|Date>> {
     const limit: number = Number(spending.parcels);
     const parcels = [];
-    const dueDateArr = this._processDate(new Date(spending.buyDate), limit)
+    const dueDateArr = this._processDate(new Date(spending.payday), limit)
 
     for (let i = 0; i < limit - 1; i++) {
       const parcel = {
@@ -77,7 +77,7 @@ CreditCardParcel.init({
     allowNull: false
   }
 }, {
-  sequelize
+  sequelize,
 });
 
 export default CreditCardParcel;

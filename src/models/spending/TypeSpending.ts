@@ -17,6 +17,10 @@ TypeSpending.init({
     type: DataTypes.STRING(50),
     allowNull: false
   },
+  code: {
+    type: DataTypes.CHAR(3),
+    allowNull: false
+  }
 }, {
   sequelize,
   timestamps: false
