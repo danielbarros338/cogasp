@@ -1,7 +1,7 @@
-import { Model, InferAttributes, InferCreationAttributes, DataTypes } from "sequelize";
+import { Model, DataTypes } from "sequelize";
 import sequelize from "@src/config/db";
 
-class CreditCard extends Model<InferAttributes<CreditCard>, InferCreationAttributes<CreditCard>> {};
+class CreditCard extends Model {};
 
 CreditCard.init({
   creditCardId: {
