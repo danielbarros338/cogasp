@@ -34,8 +34,10 @@ export async function registerSpending(req: Request, res: Response): Promise<voi
     });
   } catch (err) {
     // TODO: criar tabela para registrar erros
-    console.error('spendingController ERROR: ',err);
-    res.status(500).json({ message: "Ocorreu um erro no processamento de dados.", data: null });
+    console.error('spendingController.registerSpending ERROR: ',err);
+    res.status(500).json(
+      { message: "Ocorreu um erro no processamento de dados ao tentar registrar uma despesa.", data: null }
+    );
   }
 };
 
@@ -68,7 +70,7 @@ export async function registerTypeSpending(req: Request, res: Response): Promise
   try {
     const typeSpending = await TypeSpending.create({
       name: req.body.name,
-      userId: req.body.userId
+      code: req.body.code,
     });
 
     res.status(203).json({
@@ -81,7 +83,10 @@ export async function registerTypeSpending(req: Request, res: Response): Promise
       } 
     });
   } catch (err) {
-    res.status(500).json({ message: err, data: null });
+    console.error('spendingController.registerTypeSpending ERROR: ',err);
+    res.status(500).json(
+      { message: "Ocorreu um erro no processamento de dados ao tentar cadastrar um tipo de despesa.", data: null
+    });
   }
 };
 

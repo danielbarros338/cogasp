@@ -26,4 +26,6 @@ TypeSpending.init({
   timestamps: false
 })
 
+TypeSpending.sync();
+
 export default TypeSpending;
