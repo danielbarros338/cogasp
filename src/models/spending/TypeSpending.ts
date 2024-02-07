@@ -4,6 +4,7 @@ import sequelize from "@src/config/db";
 class TypeSpending extends Model {
   declare typeSpendingId: number;
   declare name: string;
+  declare code: string;
 };
 
 TypeSpending.init({

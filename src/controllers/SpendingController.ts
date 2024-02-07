@@ -3,23 +3,42 @@ import * as CreditCardController from "./CreditCardController";
 import models from "@src/models";
 
 export async function registerSpending(req: Request, res: Response): Promise<void> {
-  const { Spending } = models.spendingModels;
+  const { Spending, TypeSpending } = models.spendingModels;
 
-  // TODO: Realizar uma busca em TypeSpending e retornar seus Códigos para filtragem posterior
+  let typeSpendingCode;// TODO: Realizar uma busca em TypeSpending e retornar seus Códigos para filtragem posterior
+  try {
+    const typeSpending = await TypeSpending.findOne({
+      where: { typeSpendingId: req.body.typeSpendingId }
+    });
+
+    if (!typeSpending) {
+      res.status(404).json({ message: "Tipo de desepesa informado não cadastrado.", data: null });
+      return;
+    }
+
+    typeSpendingCode = typeSpending.code
+  } catch(err) {
+    console.error('spendingController.registerSpending ERROR: ',err);
+    res.status(500).json(
+      { message: "Ocorreu um erro no processamento de dados ao tentar resgatar o tipo de despesa informado.", data: null }
+    );
+
+    return;
+  }
 
   try {
     const spending = await Spending.create({
       name: req.body.name,
       value: req.body.value,
       date: req.body.date,
-      typeSpending: req.body.typeSpending,
+      typeSpendingId: req.body.typeSpendingId,
       dueDate: req.body.dueDate,
       payday: req.body.payday,
       classification: req.body.classification,
       userId: req.body.userId
     });
 
-    if (req.body.typeSpending === 1) {
+    if (typeSpendingCode === "CDC") {
       await CreditCardController.registerSpendingCreditCard(spending.spendingId, req.body);
     }
 

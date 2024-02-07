@@ -21,7 +21,7 @@ Spending.init({
     type: DataTypes.DOUBLE,
     allowNull: false
   },
-  typeSpending: {
+  typeSpendingId: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
@@ -45,6 +45,6 @@ Spending.init({
   sequelize
 });
 
-// Spending.sync();
+// Spending.sync({ force: true });
 
 export default Spending;
