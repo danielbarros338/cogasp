@@ -5,9 +5,9 @@ class CreditCardParcel extends Model {
   static processParcels(spending: Record<string, string|number|Date>): Array<Record<string, string|number|Date>> {
     const limit: number = Number(spending.parcels);
     const parcels = [];
-    const dueDateArr = this._processDate(new Date(spending.payday), limit)
+    const dueDateArr = this._processDate(spending.payday as string, limit)
 
-    for (let i = 0; i < limit - 1; i++) {
+    for (let i = 0; i < limit; i++) {
       const parcel = {
         parcel: i + 1,
         totalParcels: limit,
@@ -21,27 +21,25 @@ class CreditCardParcel extends Model {
     return parcels;
   }
 
-  static _processDate(buyDate: Date, limit: number): Array<Date> {    
+  static _processDate(buyDate: string, limit: number): Array<Date> {    
     const parcels = []
+    const date = new Date(buyDate);
+    var processMonth = date.getMonth() + 1;
+    var year = date.getFullYear()
 
-    let processMonth = buyDate.getMonth() + 1;
-    let year = buyDate.getFullYear()
-
-    for (let i = 0; i < limit - 1; i++) {
-      processMonth += i;
-      
-      if (processMonth >= 12) {
+    for (let i = 0; i < limit; i++) {     
+      if (processMonth >= 13) {
         processMonth -= 12;
         year += 1;
-        const processedDate = 
-          `${buyDate.getDate()}/${processMonth > 10 ? processMonth : '0' + (1 + processMonth).toString()}/${year}`;
+        const processedDate = `${year}-${processMonth}-${date.getDate()}`;
 
         parcels.push(processedDate);
+        processMonth++;
       } else {
-        const processedDate = 
-          `${buyDate.getDate()}/${processMonth > 10 ? processMonth : '0' + (1 + processMonth).toString()}/${buyDate.getFullYear()}`;
+        const processedDate = `${year}-${processMonth}-${date.getDate()}`;
 
         parcels.push(processedDate);
+        processMonth++;
       }
     }
 
@@ -79,5 +77,7 @@ CreditCardParcel.init({
 }, {
   sequelize,
 });
+
+// CreditCardParcel.sync()
 
 export default CreditCardParcel;

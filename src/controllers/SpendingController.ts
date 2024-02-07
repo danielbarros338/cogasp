@@ -5,19 +5,21 @@ import models from "@src/models";
 export async function registerSpending(req: Request, res: Response): Promise<void> {
   const { Spending } = models.spendingModels;
 
+  // TODO: Realizar uma busca em TypeSpending e retornar seus Códigos para filtragem posterior
+
   try {
     const spending = await Spending.create({
-      name: req.body.spendingName,
-      value: req.body.spendingValue,
-      date: req.body.spendingDate,
+      name: req.body.name,
+      value: req.body.value,
+      date: req.body.date,
       typeSpending: req.body.typeSpending,
-      dueDate: req.body.spendingDueDate,
-      payday: req.body.spendingPayday,
+      dueDate: req.body.dueDate,
+      payday: req.body.payday,
       classification: req.body.classification,
       userId: req.body.userId
     });
 
-    if (req.body.typeSpending === "CDC") {
+    if (req.body.typeSpending === 1) {
       await CreditCardController.registerSpendingCreditCard(spending.spendingId, req.body);
     }
 
@@ -31,7 +33,9 @@ export async function registerSpending(req: Request, res: Response): Promise<voi
       } 
     });
   } catch (err) {
-    res.status(500).json({ message: err, data: null });
+    // TODO: criar tabela para registrar erros
+    console.error('spendingController ERROR: ',err);
+    res.status(500).json({ message: "Ocorreu um erro no processamento de dados.", data: null });
   }
 };
 
