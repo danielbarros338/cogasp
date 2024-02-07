@@ -101,9 +101,14 @@ export async function getSpendings(req: Request, res: Response): Promise<void> {
       where: { userId: req.params.userId }
     });
 
+    // TODO: Adicionar lógica para resgatar os dados de tipo de despesa. Se cartão de crédito, retornar as parcelas.
+
     res.status(200).json({ message: "", data: spendings });
   } catch (err) {
-    res.status(500).json({ message: err, data: null });
+    console.error('spendingController.getSpendings ERROR: ',err);
+    res.status(500).json(
+      { message: "Ocorreu um erro no processamento de dados ao tentar resgatar as despesas.", data: null
+    });
   }
 }
 
