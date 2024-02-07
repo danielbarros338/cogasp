@@ -19,6 +19,10 @@ export async function registerSpendingCreditCard(spendingId: number, reqBody: Re
 
       creditCardParcels.push(parcel);
     } catch (err) {
+      if (err instanceof Error) {
+        err = err.message;
+      }
+
       throw new Error(`Error on process CreditCardController.registerSpendingCreditCard: ${err}`);
     }
   }

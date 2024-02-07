@@ -5,7 +5,7 @@ import models from "@src/models";
 export async function registerSpending(req: Request, res: Response): Promise<void> {
   const { Spending, TypeSpending } = models.spendingModels;
 
-  let typeSpendingCode;// TODO: Realizar uma busca em TypeSpending e retornar seus Códigos para filtragem posterior
+  let typeSpendingCode;
   try {
     const typeSpending = await TypeSpending.findOne({
       where: { typeSpendingId: req.body.typeSpendingId }
@@ -113,18 +113,58 @@ export async function registerTypeSpending(req: Request, res: Response): Promise
 };
 
 export async function getSpendings(req: Request, res: Response): Promise<void> {
-  const { Spending } = models.spendingModels;
+  const { Spending, TypeSpending } = models.spendingModels;
+  const { CreditCardParcel } = models.creditCardModels;
+
+  // TODO: Adicionar lógica para resgatar os dados de tipo de despesa. Se cartão de crédito, retornar as parcelas.
+  let typeSpendings;
+  try {
+    typeSpendings = await TypeSpending.findAll();
+  } catch (err) {
+    console.error('spendingController.getSpendings ERROR: ',err);
+    res.status(500).json(
+      { message: "Ocorreu um erro no processamento de dados ao tentar resgatar os tipos de despesas.", data: null
+    });
+
+    return;
+  }
 
   try {
-    const spendings = await Spending.findAll({
+    const spendingsPreProcessed = await Spending.findAll({
       where: { userId: req.params.userId }
     });
 
-    // TODO: Adicionar lógica para resgatar os dados de tipo de despesa. Se cartão de crédito, retornar as parcelas.
+    const spendings= [];
+    const cdc = typeSpendings.filter(typeSpending => typeSpending.code === "CDC");
+
+    for (const spending of spendingsPreProcessed) {
+      if (spending.typeSpendingId === cdc[0].typeSpendingId) {
+        let creditCardParcels
+        try {
+          creditCardParcels = await CreditCardParcel.findAll({ 
+            where: { spendingId: spending.spendingId }
+          });
+
+          // The shorthand property is not being used because it returns Sequelize metadata.
+          spendings.push({ spending: spending, creditCardParcels })
+        } catch (err) {
+          console.error('spendingController.getSpendings ERROR: ',err);
+
+          if (err instanceof Error) {
+            err = err.message;
+          }
+
+          throw new Error(`Error on get CreditCardParcels in spendingController.getSpendings: ${err}`)
+        }
+      } else {
+        spendings.push({ ...spending, CreditCardParcels: [] });
+      }
+    }
 
     res.status(200).json({ message: "", data: spendings });
   } catch (err) {
     console.error('spendingController.getSpendings ERROR: ',err);
+
     res.status(500).json(
       { message: "Ocorreu um erro no processamento de dados ao tentar resgatar as despesas.", data: null
     });
