@@ -137,6 +137,9 @@ export async function getTypeSpendings(req: Request, res: Response): Promise<voi
 
     res.status(200).json({ message: "", data: typeSpendings });
   } catch(err) {
-    res.status(500).json({ message: err, data: null });
+    console.error('spendingController.getTypeSpendings ERROR: ',err);
+    res.status(500).json(
+      { message: "Ocorreu um erro no processamento de dados ao tentar resgatar os tipos de despesas.", data: null
+    });
   }
 }
