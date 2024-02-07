@@ -116,7 +116,6 @@ export async function getSpendings(req: Request, res: Response): Promise<void> {
   const { Spending, TypeSpending } = models.spendingModels;
   const { CreditCardParcel } = models.creditCardModels;
 
-  // TODO: Adicionar lógica para resgatar os dados de tipo de despesa. Se cartão de crédito, retornar as parcelas.
   let typeSpendings;
   try {
     typeSpendings = await TypeSpending.findAll();
