@@ -60,7 +60,10 @@ export async function registerSpendingClassification(req: Request, res: Response
       } 
     });
   } catch (err) {
-    res.status(500).json({ message: err, data: null });
+    console.error('spendingController.registerSpendingClassification ERROR: ',err);
+    res.status(500).json(
+      { message: "Ocorreu um erro no processamento de dados ao tentar registrar uma classificação de despesa.", data: null }
+    );
   }
 };
 

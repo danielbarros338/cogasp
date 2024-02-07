@@ -26,4 +26,6 @@ SpendingClassification.init({
   timestamps: false
 });
 
+// SpendingClassification.sync();
+
 export default SpendingClassification;
