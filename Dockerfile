@@ -10,6 +10,6 @@ RUN apk add yarn
 COPY . /usr/src/backend/cogasp
 RUN yarn install
 
-EXPOSE 3030
+EXPOSE 3214
 
 CMD ["yarn", "start"]

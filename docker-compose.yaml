@@ -5,7 +5,7 @@ services:
     container_name: "cogasp-backend"
     restart: always
     ports:
-      - "3030:3030"
+      - "3214:3214"
     environment:
       - PORT=${PORT}
       - DB_DATABASE=${DB_DATABASE}
