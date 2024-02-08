@@ -78,6 +78,4 @@ CreditCardParcel.init({
   sequelize,
 });
 
-// CreditCardParcel.sync()
-
 export default CreditCardParcel;
