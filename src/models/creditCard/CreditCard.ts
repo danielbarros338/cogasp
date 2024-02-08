@@ -1,7 +1,10 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "@src/config/db";
 
-class CreditCard extends Model {};
+class CreditCard extends Model {
+  declare creditCardId: number;
+  declare endNumber: number;
+};
 
 CreditCard.init({
   creditCardId: {

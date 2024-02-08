@@ -29,3 +29,76 @@ export async function registerSpendingCreditCard(spendingId: number, reqBody: Re
 
   return creditCardParcels;
 }
+
+export async function registerCreditCard(req: Request, res: Response): Promise<void> {
+  const { CreditCard } = models.creditCardModels;
+
+  try {
+    const creditCard = await CreditCard.create({
+      cardName: req.body.cardName,
+      flag: req.body.flag,
+      endNumber: req.body.cardEndNumber,
+      dueDate: req.body.cardDueDate,
+      userId: req.body.userId
+    });
+
+    res.send(203).json({
+      message: "Cartão cadastrado com sucesso.",
+      data: {
+        creditCardId: creditCard.creditCardId,
+        endNumber: creditCard.endNumber
+      }
+    });
+  } catch (err) {
+    console.error('CreditCardController.registerCreditCard ERROR: ',err);
+    res.status(500).json(
+      { message: "Ocorreu um erro no processamento de dados ao tentar cadastrar o cartão.", data: null }
+    );
+
+    return;
+  }
+}
+
+export async function getCreditCard(req: Request, res: Response): Promise<void> {
+  const { CreditCard } = models.creditCardModels;
+
+  try {
+    const creditCard = CreditCard.findOne({
+      where: { creditCardId: req.params.creditCardId }
+    });
+
+    res.send(203).json({
+      message: "",
+      data: creditCard
+    });
+  } catch (err) {
+    console.error('CreditCardController.getCreditCard ERROR: ',err);
+    res.status(500).json(
+      { message: "Ocorreu um erro no processamento de dados ao tentar resgatar o cartão.", data: null }
+    );
+
+    return;
+  }
+}
+
+export async function getCreditCards(req: Request, res: Response): Promise<void> {
+  const { CreditCard } = models.creditCardModels;
+
+  try {
+    const creditCard = CreditCard.findOne({
+      where: { userId: req.params.userId }
+    });
+
+    res.send(203).json({
+      message: "",
+      data: creditCard
+    });
+  } catch (err) {
+    console.error('CreditCardController.registerCreditCard ERROR: ',err);
+    res.status(500).json(
+      { message: "Ocorreu um erro no processamento de dados ao tentar resgatar os cartões.", data: null }
+    );
+
+    return;
+  }
+}
