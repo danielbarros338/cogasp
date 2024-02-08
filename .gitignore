@@ -1,5 +1,6 @@
 .vscode/
 .env.development
+.env
 
 node_modules/
 dist/

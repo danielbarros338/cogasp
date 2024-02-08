@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  cogasp-backend:
+    build: "./"
+    container_name: "cogasp-backend"
+    restart: always
+    ports:
+      - "3030:3030"
+    environment:
+      - PORT=${PORT}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_DIALECT=${DB_DIALECT}
+      - SALT=${SALT}
+      - ALG=${ALG}

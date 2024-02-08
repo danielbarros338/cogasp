@@ -1,0 +1,8 @@
+node_modules/
+
+.gitignore
+.env.example
+.env.development
+
+yarn.lock
+yarn.error
