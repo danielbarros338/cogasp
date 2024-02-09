@@ -22,6 +22,7 @@ export async function signUp(req: Request, res: Response): Promise<void> {
   try {
     const user = await User.create({
       email: req.body.email,
+      name: req.body.name,
       password: crypt.cryptPass(req.body.password)
     });
 
