@@ -2,9 +2,11 @@ pipeline {
   agent any
 
   stages {
-    stage ('Begin') {
+    stage ('Build image') {
       steps {
-        echo 'Pipeline initialize'
+        script {
+          dockerapp = docker.build("cogasp-backend", "-f ./Dockerfile ./")
+        }
       }
     }
   }
