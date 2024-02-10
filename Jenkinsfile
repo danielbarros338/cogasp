@@ -24,7 +24,7 @@ pipeline {
     stage ('Create container') {
       steps {
         script {
-          sh 'docker compose -up -d --build --force-recreate'
+          sh 'docker compose up -d --build --force-recreate'
         }
       }
     }
