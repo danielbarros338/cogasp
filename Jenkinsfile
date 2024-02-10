@@ -23,7 +23,7 @@ pipeline {
 
     stage ('Create container') {
       steps {
-        sh 'docker prune all -f'
+        sh 'docker prune --all --force'
         sh 'docker compose up -d --build'
       }    
     }
