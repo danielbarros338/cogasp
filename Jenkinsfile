@@ -5,7 +5,7 @@ pipeline {
     stage ('Build image') {
       steps {
         script { // Create a docker image with a name 'cogasp-backend' and tag is a BUID_ID
-          dockerapp = docker.build("cogasp-backend:${env.BUILD_ID}", "-f ./Dockerfile ./")
+          dockerapp = docker.build("danielbarros0611/cogasp-backend:${env.BUILD_ID}", "-f ./Dockerfile ./")
         }
       }
     }
