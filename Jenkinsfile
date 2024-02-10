@@ -22,11 +22,18 @@ pipeline {
     }
 
     stage ('Create container') {
-      steps {
-        script {
-          sh 'docker compose up -d --build --force-recreate'
-        }
-      }
+      step(
+        [
+          $class: 'DockerComposeBuilder',
+          dockerComposeFile: './docker-compose.yml',
+          option: [
+            $class: 'StartService',
+            scale: 1,
+            service: 'cogasp'
+            ],
+          useCustomDockerComposeFile: true
+        ]
+      )
     }
   }
 }
