@@ -26,7 +26,7 @@ pipeline {
         step(
           [
             $class: 'DockerComposeBuilder',
-            dockerComposeFile: './docker-compose.yml',
+            dockerComposeFile: 'docker-compose.yml',
             option: [
               $class: 'StartService',
               scale: 1,
