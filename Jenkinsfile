@@ -23,18 +23,16 @@ pipeline {
 
     stage ('Create container') {
       steps {
-        step(
-          [
-            $class: 'DockerComposeBuilder',
-            dockerComposeFile: 'docker-compose.yml',
-            option: [
-              $class: 'StartService',
-              scale: 1,
-              service: 'cogasp'
-              ],
-            useCustomDockerComposeFile: true
-          ]
-        )
+        step([
+          $class: 'DockerComposeBuilder',
+          dockerComposeFile: 'docker-compose.yaml',
+          option: [
+            $class: 'StartService',
+            scale: 1,
+            service: 'cogasp-backend'
+          ],
+          useCustomDockerComposeFile: true
+        ])
       }    
     }
   }
