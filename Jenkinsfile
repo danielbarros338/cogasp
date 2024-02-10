@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage ('Build image') {
       steps {
-        script { // Create a docker image with a name 'cogasp-backend' and tag is a BUID_ID
+        script { // References a repo docker hub and tag is a BUID_ID
           dockerapp = docker.build("danielbarros0611/cogasp-backend:${env.BUILD_ID}", "-f ./Dockerfile ./")
         }
       }
@@ -17,6 +17,14 @@ pipeline {
             dockerapp.push('latest')
             dockerapp.push("${env.BUILD_ID}")
           }
+        }
+      }
+    }
+
+    stage ('Create container') {
+      steps {
+        script {
+          sh 'docker compose -up -d --build --force-recreate'
         }
       }
     }
