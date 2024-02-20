@@ -8,7 +8,6 @@ pipeline {
   stages {
     stage ('Build image') {
       steps {
-        echo DB_DATABASE
         script { // References a repo docker hub and tag is a BUID_ID
           dockerapp = docker.build("danielbarros0611/cogasp-backend:${env.BUILD_ID}", "-f ./Dockerfile ./")
         }
