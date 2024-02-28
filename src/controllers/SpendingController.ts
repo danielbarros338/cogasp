@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as CreditCardController from "./CreditCardController";
+import * as FinancingController from "./FinancingController";
 import models from "@src/models";
 
 export async function registerSpending(req: Request, res: Response): Promise<void> {
@@ -40,6 +41,10 @@ export async function registerSpending(req: Request, res: Response): Promise<voi
 
     if (typeSpendingCode === "CDC") {
       await CreditCardController.registerSpendingCreditCard(spending.spendingId, req.body);
+    }
+
+    if (typeSpendingCode === "FNC") {
+      await FinancingController.registerFinancingParcels(spending.spendingId, req.body)
     }
 
     res.status(203).json({
