@@ -3,6 +3,15 @@ pipeline {
 
   environment {
     DB_DATABASE = credentials('DB_COGASP_DATABASE')
+    DB_USER = credentials('DB_USER')
+    DB_PASSWORD = credentials('DB_PASSWORD')
+    DB_HOST = credentials('DB_HOST')
+    DB_PORT = credentials('DB_PORT')
+    DB_DIALECT = credentials('DB_DIALECT')
+
+    SALT = credentials('COGASP_SALT')
+    ALG = credentials('COGASP_ALG')
+    PORT = credentials('COGASP_PORT')
   }
 
   stages {
